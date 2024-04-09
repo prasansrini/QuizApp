@@ -24,8 +24,10 @@ public class QuizAppController {
     }
 
     @PostMapping("/newdata")
-    public void addDefaultEntries() {
+    public String[] addDefaultEntries() {
         quizAppService.putDefaultEntries();
+
+        return new String[]{"status:200", "message:success"};
     }
 
     //    @GetMapping("/nextquestion")
