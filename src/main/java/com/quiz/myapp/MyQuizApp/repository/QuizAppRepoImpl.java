@@ -37,12 +37,9 @@ public class QuizAppRepoImpl implements QuizAppDAO {
     @Override
     @Transactional
     public QuizQuestionWrapper getNextQuestion() {
-        TypedQuery<QuizQuestion> query =
-                mEntityManager.createQuery("FROM QuizQuestion WHERE isShown = FALSE",
-                        QuizQuestion.class);
+        TypedQuery<QuizQuestion> query = mEntityManager.createQuery("FROM QuizQuestion", QuizQuestion.class);
         List<QuizQuestion> questions = query.getResultList();
-
-        QuizQuestion question = questions.get(0);
+        QuizQuestion question = questions.stream().filter(quizQuestion -> !quizQuestion.isShown()).toList().get(0);
 
         QuizQuestionWrapper wrapper = QuizQuestionTranslatorUtil.getTranslated(question);
         question.setShown(true);
@@ -50,5 +47,10 @@ public class QuizAppRepoImpl implements QuizAppDAO {
         mEntityManager.merge(question);
 
         return wrapper;
+    }
+
+    @Override
+    public QuizQuestion findQuizQuestion(int questionId) {
+        return mEntityManager.find(QuizQuestion.class, questionId);
     }
 }

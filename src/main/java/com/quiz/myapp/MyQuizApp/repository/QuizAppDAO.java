@@ -11,4 +11,6 @@ public interface QuizAppDAO {
     List<QuizQuestion> getQuizQuestions();
 
     QuizQuestionWrapper getNextQuestion();
+
+    QuizQuestion findQuizQuestion(int questionId);
 }

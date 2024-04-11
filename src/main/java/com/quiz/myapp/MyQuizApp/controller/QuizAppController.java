@@ -1,15 +1,12 @@
 package com.quiz.myapp.MyQuizApp.controller;
 
-import com.quiz.myapp.MyQuizApp.entity.QuizQuestion;
 import com.quiz.myapp.MyQuizApp.model.QuizQuestionWrapper;
 import com.quiz.myapp.MyQuizApp.service.QuizAppService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/quiz")
@@ -30,8 +27,18 @@ public class QuizAppController {
         return new String[]{"status:200", "message:success"};
     }
 
-        @GetMapping("/questions/next")
+    @GetMapping("/questions/next")
     public QuizQuestionWrapper getNextQuestion() {
         return quizAppService.nextQuestion();
+    }
+
+    @PostMapping("/questions/lifeline")
+    public QuizQuestionWrapper getLifeLine(@RequestParam int id) {
+        return quizAppService.getLifeLine(id);
+    }
+
+    @PostMapping("/questions/answer/submit")
+    public Map<String, String> checkAnswer(@RequestParam int id, @RequestParam String answer) {
+        return quizAppService.submitAnswer(id, answer);
     }
 }
