@@ -23,14 +23,14 @@ public class QuizAppController {
         return quizAppService.getQuizQuestions();
     }
 
-    @PostMapping("/create")
+    @PostMapping("/questions")
     public String[] addDefaultEntries() {
         quizAppService.putDefaultEntries();
 
         return new String[]{"status:200", "message:success"};
     }
 
-        @GetMapping("/question/next")
+        @GetMapping("/questions/next")
     public QuizQuestionWrapper getNextQuestion() {
         return quizAppService.nextQuestion();
     }
