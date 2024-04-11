@@ -1,6 +1,7 @@
 package com.quiz.myapp.MyQuizApp.repository;
 
 import com.quiz.myapp.MyQuizApp.entity.QuizQuestion;
+import com.quiz.myapp.MyQuizApp.model.QuizQuestionWrapper;
 
 import java.util.List;
 
@@ -9,5 +10,5 @@ public interface QuizAppDAO {
 
     List<QuizQuestion> getQuizQuestions();
 
-    QuizQuestion getNextQuestion();
+    QuizQuestionWrapper getNextQuestion();
 }

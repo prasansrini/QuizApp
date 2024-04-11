@@ -1,5 +1,7 @@
 package com.quiz.myapp.MyQuizApp.model;
 
+import java.util.Arrays;
+
 public class QuizQuestionWrapper {
     private int id;
 
@@ -35,5 +37,14 @@ public class QuizQuestionWrapper {
 
     public void setOptions(String[] options) {
         this.options = options;
+    }
+
+    @Override
+    public String toString() {
+        return "QuizQuestionWrapper{" +
+                "id=" + id +
+                ", question='" + question + '\'' +
+                ", options=" + Arrays.toString(options) +
+                '}';
     }
 }

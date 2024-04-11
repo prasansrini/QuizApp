@@ -54,7 +54,7 @@ public class QuizAppServiceImpl implements QuizAppService {
     }
 
     @Override
-    public QuizQuestion nextQuestion() {
+    public QuizQuestionWrapper nextQuestion() {
         return mQuizAppRepoImpl.getNextQuestion();
     }
 }

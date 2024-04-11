@@ -18,20 +18,20 @@ public class QuizAppController {
     @Autowired
     private QuizAppService quizAppService;
 
-    @GetMapping("/allquestions")
+    @GetMapping("/questions")
     public List<QuizQuestionWrapper> getQuizQuestions() {
         return quizAppService.getQuizQuestions();
     }
 
-    @PostMapping("/newdata")
+    @PostMapping("/create")
     public String[] addDefaultEntries() {
         quizAppService.putDefaultEntries();
 
         return new String[]{"status:200", "message:success"};
     }
 
-    //    @GetMapping("/nextquestion")
-    public QuizQuestion getNextQuestion() {
+        @GetMapping("/question/next")
+    public QuizQuestionWrapper getNextQuestion() {
         return quizAppService.nextQuestion();
     }
 }

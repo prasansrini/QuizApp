@@ -8,5 +8,5 @@ import java.util.List;
 public interface QuizAppService {
     List<QuizQuestionWrapper> getQuizQuestions();
     void putDefaultEntries();
-    QuizQuestion nextQuestion();
+    QuizQuestionWrapper nextQuestion();
 }
