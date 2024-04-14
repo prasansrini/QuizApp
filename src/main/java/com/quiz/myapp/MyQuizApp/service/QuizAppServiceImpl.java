@@ -12,10 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class QuizAppServiceImpl implements QuizAppService {
@@ -65,12 +62,13 @@ public class QuizAppServiceImpl implements QuizAppService {
     public QuizQuestionWrapper getLifeLine(int questionId) {
         QuizQuestion question = mQuizAppRepoImpl.findQuizQuestion(questionId);
 
-        String notAnswer = Arrays.stream(question.getOptions())
+        Optional<String> notAnswer = Arrays.stream(question.getOptions())
                 .filter(option -> !option.equals(question.getAnswer()))
-                .toList()
-                .toArray(new String[0])[0];
+                .findFirst();
 
-        question.setOptions(new String[]{notAnswer, question.getAnswer()});
+        if (notAnswer.isPresent()) {
+            question.setOptions(new String[]{notAnswer.get(), question.getAnswer()});
+        }
 
         return QuizQuestionTranslatorUtil.getTranslated(question);
     }
@@ -81,9 +79,9 @@ public class QuizAppServiceImpl implements QuizAppService {
         Map<String, String> result = new HashMap<>();
 
         if (question.getAnswer().equals(answer)) {
-            result.put("result", "Correct answer! :)");
+            result.put("result", "correct");
         } else {
-            result.put("result", "Wrong answer! :(");
+            result.put("result", "wrong");
         }
 
         return result;

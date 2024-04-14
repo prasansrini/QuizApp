@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class QuizAppRepoImpl implements QuizAppDAO {
@@ -39,12 +40,12 @@ public class QuizAppRepoImpl implements QuizAppDAO {
     public QuizQuestionWrapper getNextQuestion() {
         TypedQuery<QuizQuestion> query = mEntityManager.createQuery("FROM QuizQuestion", QuizQuestion.class);
         List<QuizQuestion> questions = query.getResultList();
-        QuizQuestion question = questions.stream().filter(quizQuestion -> !quizQuestion.isShown()).toList().get(0);
+        Optional<QuizQuestion> question = questions.stream().filter(quizQuestion -> !quizQuestion.isShown()).findFirst();
 
-        QuizQuestionWrapper wrapper = QuizQuestionTranslatorUtil.getTranslated(question);
-        question.setShown(true);
+        QuizQuestionWrapper wrapper = QuizQuestionTranslatorUtil.getTranslated(question.get());
+        question.get().setShown(true);
 
-        mEntityManager.merge(question);
+        mEntityManager.merge(question.get());
 
         return wrapper;
     }

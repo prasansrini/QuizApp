@@ -37,8 +37,8 @@ public class QuizAppController {
         return quizAppService.getLifeLine(id);
     }
 
-    @PostMapping("/questions/answer/submit")
-    public Map<String, String> checkAnswer(@RequestParam int id, @RequestParam String answer) {
-        return quizAppService.submitAnswer(id, answer);
+    @PostMapping("/questions/answer/{questionId}")
+    public Map<String, String> checkAnswer(@PathVariable int questionId, @RequestBody Map<String, String> answer) {
+        return quizAppService.submitAnswer(questionId, answer.get("answer"));
     }
 }
