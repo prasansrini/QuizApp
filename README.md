@@ -28,3 +28,11 @@ Technologies used:
 
 * Constrain the endpoint /next to give out only 10 questions.
 * Submission of 10 questions with answers.
+
+### Contributors
+
+* Prasanna Srinivasan
+
+### Reviewers
+
+* Sarthak Patnaik
