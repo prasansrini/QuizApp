@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-./mvnw clean package
+mvn clean package
 java -jar target/OUTPUT.jar
