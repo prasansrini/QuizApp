@@ -32,7 +32,3 @@ Technologies used:
 ### Contributors
 
 * Prasanna Srinivasan
-
-### Reviewers
-
-* Sarthak Patnaik
