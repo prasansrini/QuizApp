@@ -66,9 +66,7 @@ public class QuizAppServiceImpl implements QuizAppService {
                 .filter(option -> !option.equals(question.getAnswer()))
                 .findFirst();
 
-        if (notAnswer.isPresent()) {
-            question.setOptions(new String[]{notAnswer.get(), question.getAnswer()});
-        }
+        notAnswer.ifPresent(s -> question.setOptions(new String[]{s, question.getAnswer()}));
 
         return QuizQuestionTranslatorUtil.getTranslated(question);
     }
