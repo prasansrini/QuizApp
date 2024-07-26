@@ -1,0 +1,39 @@
+services:
+  quiz-app:
+    image: quiz-app:latest
+    container_name: quiz-app
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://quizapp-quiz-db-1:3306/student_tracker
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=Poperman@29
+    ports:
+      - 8888:8888
+    depends_on:
+      - quiz-db
+  kafka-demo-app:
+    image: kafka-docker-demo:latest
+    container_name: kafka-demo-app
+    ports:
+      - 8090:8090
+    depends_on:
+      - quiz-app
+  quiz-db:
+    # We use a mariadb image which supports both amd64 & arm64 architecture
+    image: mysql:8.0.27
+    # If you really want to use MySQL, uncomment the following line
+    #image: mysql:8.0.27
+#    restart: always
+    secrets:
+      - db-password
+    volumes:
+      - db-data:/var/lib/mysql1
+    environment:
+      - MYSQL_DATABASE=student_tracker
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db-password
+    ports:
+      - 3306:3306
+volumes:
+  db-data:
+secrets:
+  db-password:
+    file: db/password.txt
