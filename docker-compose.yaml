@@ -3,7 +3,7 @@ services:
     image: quiz-app:latest
     container_name: quiz-app
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://quizapp-quiz-db-1:3306/student_tracker
+      - SPRING_DATASOURCE_URL=jdbc:mysql://quiz-db:3306/student_tracker
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=Poperman@29
     ports:

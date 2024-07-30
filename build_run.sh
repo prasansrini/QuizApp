@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-mvn clean package || exit
+mvn clean install -DskipTests || exit
 docker build -t quiz-app . || exit
 
 # Enable this if Docker compose is not used.

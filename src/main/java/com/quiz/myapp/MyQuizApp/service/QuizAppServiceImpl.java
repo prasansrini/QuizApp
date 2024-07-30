@@ -31,26 +31,33 @@ public class QuizAppServiceImpl implements QuizAppService {
     @Override
     public void putDefaultEntries() {
         if (mQuizAppRepoImpl.getQuizQuestions().isEmpty()) {
-            ObjectMapper mapper = new ObjectMapper();
+            System.out.println("Working Directory = " + System.getProperty("user.dir"));
 
-            try {
-                File resource = new ClassPathResource("input_questions.json").getFile();
-
-                mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-
-                QuizQuestion[] questions = mapper.readValue(resource, QuizQuestion[].class);
-
-                for (QuizQuestion question : questions) {
-                    mQuizAppRepoImpl.save(question);
-                }
-
-                List<QuizQuestion> newQuestions = mQuizAppRepoImpl.getQuizQuestions();
-
-                System.out.println("New DB data: " + newQuestions.size());
-            } catch (IOException e) {
-                e.printStackTrace();
+            for (QuizQuestion question : populateQuestions()) {
+                mQuizAppRepoImpl.save(question);
             }
+
+            List<QuizQuestion> newQuestions = mQuizAppRepoImpl.getQuizQuestions();
+
+            System.out.println("New DB data: " + newQuestions.size());
         }
+    }
+
+    private QuizQuestion[] populateQuestions() {
+        QuizQuestion[] quizQuestions = new QuizQuestion[10];
+        
+        quizQuestions[0] = new QuizQuestion("What is the capital of France?", new String[]{"Paris", "London", "Berlin", "Madrid"}, "Paris", false);
+        quizQuestions[1] = new QuizQuestion("Which planet is known as the Red Planet?", new String[]{"Earth", "Mars", "Jupiter", "Saturn"}, "Mars", false);
+        quizQuestions[2] = new QuizQuestion("What is the largest ocean on Earth?", new String[]{"Atlantic", "Indian", "Arctic", "Pacific"}, "Pacific", false);
+        quizQuestions[3] = new QuizQuestion("Who wrote 'Romeo and Juliet'?", new String[]{"William Shakespeare", "Charles Dickens", "Mark Twain", "Ernest Hemingway"}, "William Shakespeare", false);
+        quizQuestions[4] = new QuizQuestion("What is the chemical symbol for water?", new String[]{"H2O", "CO2", "NaCl", "O2"}, "H2O", false);
+        quizQuestions[5] = new QuizQuestion("How many continents are there on Earth?", new String[]{"5", "6", "7", "8"}, "7", false);
+        quizQuestions[6] = new QuizQuestion("What is the tallest mountain in the world?", new String[]{"K2", "Kangchenjunga", "Lhotse", "Mount Everest"}, "Mount Everest", false);
+        quizQuestions[7] = new QuizQuestion("Who painted the Mona Lisa?", new String[]{"Leonardo da Vinci", "Vincent van Gogh", "Pablo Picasso", "Claude Monet"}, "Leonardo da Vinci", false);
+        quizQuestions[8] = new QuizQuestion("What is the hardest natural substance on Earth?", new String[]{"Gold", "Iron", "Diamond", "Platinum"}, "Diamond", false);
+        quizQuestions[9] = new QuizQuestion("Which element has the chemical symbol 'O'?", new String[]{"Oxygen", "Gold", "Silver", "Iron"}, "Oxygen", false);
+
+        return quizQuestions;
     }
 
     @Override
