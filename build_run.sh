@@ -6,7 +6,7 @@ if [ "$1" == "" ]
     exit
 fi
 
-mvn clean install -DskipTests || exit
+mvn clean install || exit
 docker build -t quiz-app . || exit
 
 docker tag quiz-app prasansrini29/quiz-app || exit
