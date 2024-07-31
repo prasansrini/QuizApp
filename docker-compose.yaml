@@ -1,6 +1,6 @@
 services:
   quiz-app:
-    image: quiz-app:latest
+    image: prasansrini29/quiz-app:latest
     container_name: quiz-app
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://quiz-db:3306/student_tracker
@@ -11,7 +11,7 @@ services:
     depends_on:
       - quiz-db
   kafka-demo-app:
-    image: kafka-docker-demo:latest
+    image: prasansrini29/kafka-docker-demo:latest
     container_name: kafka-demo-app
     ports:
       - 8090:8090
@@ -26,7 +26,7 @@ services:
     secrets:
       - db-password
     volumes:
-      - db-data:/var/lib/mysql1
+      - db-data:/var/lib/mysql
     environment:
       - MYSQL_DATABASE=student_tracker
       - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db-password
