@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-mvn clean install -DskipTests || exit
-docker build -t quiz-app . || exit
+mvn clean install -f ./build/QuizApp/pom.xml -DskipTests || exit
+docker build -t quiz-app ./build/QuizApp || exit
 
 if [ $# -eq 0 ]
     then
