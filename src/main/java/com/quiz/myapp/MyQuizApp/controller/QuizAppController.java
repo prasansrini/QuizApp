@@ -3,6 +3,7 @@ package com.quiz.myapp.MyQuizApp.controller;
 import com.quiz.myapp.MyQuizApp.model.QuizQuestionWrapper;
 import com.quiz.myapp.MyQuizApp.service.QuizAppService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,5 +41,11 @@ public class QuizAppController {
     @PostMapping("/questions/answer/{questionId}")
     public Map<String, String> checkAnswer(@PathVariable int questionId, @RequestBody Map<String, String> answer) {
         return quizAppService.submitAnswer(questionId, answer.get("answer"));
+    }
+
+    @GetMapping("/load/question/test")
+    @Profile("!production")
+    public boolean autoLoadQuestions() {
+        return true;
     }
 }
