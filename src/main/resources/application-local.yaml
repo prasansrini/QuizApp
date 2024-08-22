@@ -7,3 +7,6 @@ spring:
     url: jdbc:mysql://localhost:3306/student_tracker
     username: root
     password: prasanna@123
+
+server:
+  port: 8888
